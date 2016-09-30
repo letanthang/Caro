@@ -9,25 +9,33 @@
 /* Begin PBXBuildFile section */
 		3B14E3921D91184700EC3DB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B14E3911D91184700EC3DB3 /* AppDelegate.swift */; };
 		3B14E3941D91184700EC3DB3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3B14E3931D91184700EC3DB3 /* GameScene.sks */; };
-		3B14E3961D91184700EC3DB3 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3B14E3951D91184700EC3DB3 /* Actions.sks */; };
 		3B14E3981D91184700EC3DB3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B14E3971D91184700EC3DB3 /* GameScene.swift */; };
 		3B14E39A1D91184700EC3DB3 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B14E3991D91184700EC3DB3 /* GameViewController.swift */; };
 		3B14E39D1D91184700EC3DB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B14E39B1D91184700EC3DB3 /* Main.storyboard */; };
 		3B14E39F1D91184700EC3DB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B14E39E1D91184700EC3DB3 /* Assets.xcassets */; };
 		3B14E3A21D91184700EC3DB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B14E3A01D91184700EC3DB3 /* LaunchScreen.storyboard */; };
+		3B62FD1B1D98B64000FBF4CB /* StoneColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62FD1A1D98B64000FBF4CB /* StoneColor.swift */; };
+		3B62FD1D1D98B6D400FBF4CB /* Stone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62FD1C1D98B6D400FBF4CB /* Stone.swift */; };
+		3B62FD1F1D98CDFB00FBF4CB /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62FD1E1D98CDFB00FBF4CB /* Board.swift */; };
+		3B62FD211D98D5DA00FBF4CB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62FD201D98D5DA00FBF4CB /* Player.swift */; };
+		3B62FD231D98DADF00FBF4CB /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62FD221D98DADF00FBF4CB /* Move.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3B14E38E1D91184700EC3DB3 /* Flip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B14E3911D91184700EC3DB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B14E3931D91184700EC3DB3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		3B14E3951D91184700EC3DB3 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		3B14E3971D91184700EC3DB3 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		3B14E3991D91184700EC3DB3 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		3B14E39C1D91184700EC3DB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3B14E39E1D91184700EC3DB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B14E3A11D91184700EC3DB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B14E3A31D91184700EC3DB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B62FD1A1D98B64000FBF4CB /* StoneColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoneColor.swift; sourceTree = "<group>"; };
+		3B62FD1C1D98B6D400FBF4CB /* Stone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stone.swift; sourceTree = "<group>"; };
+		3B62FD1E1D98CDFB00FBF4CB /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		3B62FD201D98D5DA00FBF4CB /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		3B62FD221D98DADF00FBF4CB /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,13 +70,17 @@
 			children = (
 				3B14E3911D91184700EC3DB3 /* AppDelegate.swift */,
 				3B14E3931D91184700EC3DB3 /* GameScene.sks */,
-				3B14E3951D91184700EC3DB3 /* Actions.sks */,
 				3B14E3971D91184700EC3DB3 /* GameScene.swift */,
+				3B62FD201D98D5DA00FBF4CB /* Player.swift */,
+				3B62FD221D98DADF00FBF4CB /* Move.swift */,
+				3B62FD1C1D98B6D400FBF4CB /* Stone.swift */,
 				3B14E3991D91184700EC3DB3 /* GameViewController.swift */,
 				3B14E39B1D91184700EC3DB3 /* Main.storyboard */,
 				3B14E39E1D91184700EC3DB3 /* Assets.xcassets */,
 				3B14E3A01D91184700EC3DB3 /* LaunchScreen.storyboard */,
 				3B14E3A31D91184700EC3DB3 /* Info.plist */,
+				3B62FD1A1D98B64000FBF4CB /* StoneColor.swift */,
+				3B62FD1E1D98CDFB00FBF4CB /* Board.swift */,
 			);
 			path = Flip;
 			sourceTree = "<group>";
@@ -137,7 +149,6 @@
 				3B14E3941D91184700EC3DB3 /* GameScene.sks in Resources */,
 				3B14E39F1D91184700EC3DB3 /* Assets.xcassets in Resources */,
 				3B14E3A21D91184700EC3DB3 /* LaunchScreen.storyboard in Resources */,
-				3B14E3961D91184700EC3DB3 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,9 +159,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B62FD1D1D98B6D400FBF4CB /* Stone.swift in Sources */,
 				3B14E3981D91184700EC3DB3 /* GameScene.swift in Sources */,
+				3B62FD1F1D98CDFB00FBF4CB /* Board.swift in Sources */,
 				3B14E39A1D91184700EC3DB3 /* GameViewController.swift in Sources */,
+				3B62FD231D98DADF00FBF4CB /* Move.swift in Sources */,
+				3B62FD211D98D5DA00FBF4CB /* Player.swift in Sources */,
 				3B14E3921D91184700EC3DB3 /* AppDelegate.swift in Sources */,
+				3B62FD1B1D98B64000FBF4CB /* StoneColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +332,7 @@
 				3B14E3A81D91184700EC3DB3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

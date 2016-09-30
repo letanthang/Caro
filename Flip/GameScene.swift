@@ -10,101 +10,108 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
+    var rows = [[Stone]]()
     
-    var entities = [GKEntity]()
-    var graphs = [String : GKGraph]()
+    var board: Board!
     
-    private var lastUpdateTime : TimeInterval = 0
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    private var label: SKSpriteNode?
+    private var spinnyNode: SKShapeNode?
+    
+    override func didMove(to view: SKView) {
+        let background = SKSpriteNode(imageNamed: "background")
+        
+        background.blendMode = .replace
+        background.zPosition = 1
+        addChild(background)
+        
+        let gameBoard = SKSpriteNode(imageNamed: "board")
+        gameBoard.name = "board"
+        gameBoard.zPosition = 2
+        
+        addChild(gameBoard)
+        
+        board = Board()
+        
+        //1: Set up the constants for positioning
+        
+        let offsetX = -280
+        let offsetY = 281
+        let stoneSize = 80
+        
+        for row in 0 ..< Board.size {
+            //2: count from 0 to 7, creating a new array of the stones
+            var colArray = [Stone]()
+            for col in 0 ..< Board.size {
+                //3: create from 0 to 7, creating a new stone object
+                let stone = Stone(color: UIColor.clear, size: CGSize(width: stoneSize, height: stoneSize))
+                //4: place the stone at the correct position
+                stone.position = CGPoint(x: offsetX + (col * stoneSize), y: offsetY + (row * stoneSize))
+                //5: tell the stone its row and column
+                stone.row = row
+                stone.col = col
+                //6: 
+                
+                gameBoard.addChild(stone)
+                colArray.append(stone)
+            }
+            
+            board.rows.append([StoneColor](repeatElement(.empty, count: Board.size)))
+            rows.append(colArray)
+            
+        }
+        
+        
+        
+        rows[4][3].setPlayer(.white)
+        rows[4][2].setPlayer(.black)
+        rows[4][1].setPlayer(.white)
+        rows[3][2].setPlayer(.black)
+        
+        board.rows[4][3] = .white
+        board.rows[4][2] = .black
+        board.rows[4][1] = .white
+        board.rows[3][2] = .black
+        
+    }
+    
     
     override func sceneDidLoad() {
 
-        self.lastUpdateTime = 0
-        
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
-        
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(M_PI), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
     }
     
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        //1: unwrap the first touch
+        guard let touch = touches.first else { return }
+        
+        //2: find the gameboard, or return if it somehow couldn't be found
+        guard let gameBoard = childNode(withName: "board") else { return }
+        //3: figure out where on the game board the touch landed
+        let location = touch.location(in: gameBoard)
+        
+        //4: pull out an array of all nodes in that locaiton
+        let nodesAtPoint = self.nodes(at: location)
+        
+        //5: filter out all nodes that arent Stone
+        let tappedStones = nodesAtPoint.filter { $0 is Stone }
+        
+        //6: if no stone was tapped, bail out
+        guard tappedStones.count > 0 else { return }
+        let tappedStone = tappedStones[0] as! Stone
+        
+        //7: pass the tapped stones row and column into  canMoveOn()
+        if board.canMoveIn(row: tappedStone.row, col: tappedStone.col) {
+            //8: print a message if the move is legal
+            print("Move is legal")
+        } else {
+            print("Move is illegal")
         }
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
         
-        // Initialize _lastUpdateTime if it has not already been
-        if (self.lastUpdateTime == 0) {
-            self.lastUpdateTime = currentTime
-        }
         
-        // Calculate time since last update
-        let dt = currentTime - self.lastUpdateTime
         
-        // Update entities
-        for entity in self.entities {
-            entity.update(deltaTime: dt)
-        }
         
-        self.lastUpdateTime = currentTime
+        
     }
+    
 }
