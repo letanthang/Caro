@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameplayKit
 
 class Board: NSObject {
     static let size = 8
@@ -70,8 +71,71 @@ class Board: NSObject {
         if row < 0 { return false }
         if col < 0 { return false }
         if row >= Board.size { return false }
-        if col <= Board.size { return false }
+        if col >= Board.size { return false }
         
         return true
+    }
+    
+    func makeMove(player: Player, row: Int, col: Int) -> [Move] {
+        //1: create an array to hold all the captured stones
+        var didCapture = [Move]()
+        //2: place the stone in the requested position
+        rows[row][col] = player.stoneColor
+        
+        didCapture.append(Move(row: row, col: col))
+        
+        for move in Board.moves {
+            //3: look in this direction for  captured stones
+            var mightCapture = [Move]()
+            var currentRow = row
+            var currentCol = col
+            
+            for _ in 0 ..< Board.size {
+                currentRow += move.row
+                currentCol += move.col
+                
+                //5: make sure this is a sensible position to move to
+                
+                guard isInBound(row: currentRow, col: currentCol) else { break }
+                let stone = rows[currentRow][currentCol]
+                
+                if stone == player.opponent.stoneColor {
+                    //6: we found an enemy stone - add it to the list of possible captures
+                    mightCapture.append(Move(row: currentRow, col: currentCol))
+                    
+                } else if stone == player.stoneColor {
+                    //7: we found one of our stones, add the might capture to did capture array
+                    didCapture.append(contentsOf: mightCapture)
+                    //8: change all stones to the player color, then exit the loop because we're finished in this direction
+                    mightCapture.forEach {
+                        rows[$0.row][$0.col] = player.stoneColor
+                    }
+                    break
+                    
+                } else {
+                    //9: we found sth else bail out
+                    break
+                }
+            }
+            
+        }
+        //10: send back the list of of captured stones
+        return didCapture
+    }
+    
+    func getScores() -> (black: Int, white: Int) {
+        var black = 0
+        var white = 0
+        
+        rows.forEach {
+            $0.forEach {
+                if $0 == .black {
+                    black += 1
+                } else if $0 == .white {
+                    white += 1
+                }
+            }
+        }
+        return (black, white)
     }
 }

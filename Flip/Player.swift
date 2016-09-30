@@ -9,8 +9,9 @@
 import UIKit
 import GameplayKit
 
-class Player: NSObject {
+class Player: NSObject, GKGameModelPlayer {
     // create two players, black and white, and store them in a static array
+    var playerId: Int
     
     static let allPlayers = [Player(stone: .black), Player(stone: .white)]
     
@@ -18,6 +19,7 @@ class Player: NSObject {
     
     init(stone: StoneColor) {
         stoneColor = stone
+        playerId = stone.hashValue
     }
     
     var opponent: Player {

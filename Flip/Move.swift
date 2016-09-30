@@ -9,9 +9,12 @@
 import UIKit
 import GameplayKit
 
-class Move: NSObject {
+class Move: NSObject, GKGameModelUpdate {
+    
     var row: Int
     var col: Int
+    
+    var value = 0
     
     init(row: Int, col: Int) {
         self.row = row

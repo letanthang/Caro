@@ -35,7 +35,7 @@ class GameScene: SKScene {
         //1: Set up the constants for positioning
         
         let offsetX = -280
-        let offsetY = 281
+        let offsetY = -281
         let stoneSize = 80
         
         for row in 0 ..< Board.size {
@@ -64,12 +64,12 @@ class GameScene: SKScene {
         
         rows[4][3].setPlayer(.white)
         rows[4][2].setPlayer(.black)
-        rows[4][1].setPlayer(.white)
+        rows[3][3].setPlayer(.white)
         rows[3][2].setPlayer(.black)
         
         board.rows[4][3] = .white
         board.rows[4][2] = .black
-        board.rows[4][1] = .white
+        board.rows[3][3] = .white
         board.rows[3][2] = .black
         
     }
@@ -102,16 +102,34 @@ class GameScene: SKScene {
         //7: pass the tapped stones row and column into  canMoveOn()
         if board.canMoveIn(row: tappedStone.row, col: tappedStone.col) {
             //8: print a message if the move is legal
-            print("Move is legal")
+            makeMove(row: tappedStone.row, col: tappedStone.col)
         } else {
             print("Move is illegal")
         }
         
+    }
+    
+    func makeMove(row: Int, col: Int) {
+        //find the list of captured stones
+        let captured = board.makeMove(player: board.currentPlayer, row: row, col: col)
         
+        for move in captured {
+            //pull out the sprite for each captured stone
+            let stone = rows[move.row][move.col]
+            //update who owns it
+            stone.setPlayer(board.currentPlayer.stoneColor)
+            //make it 120% of its normal size
+            stone.xScale = 1.2
+            stone.yScale = 1.2
+            
+            //animate it down to 100%
+            stone.run(SKAction.scale(to: 1, duration: 0.5))
+            
+            
+        }
         
-        
-        
-        
+        //change players
+        board.currentPlayer = board.currentPlayer.opponent
     }
     
 }
