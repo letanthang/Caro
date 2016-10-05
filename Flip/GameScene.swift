@@ -14,6 +14,9 @@ class GameScene: SKScene {
     
     var board: Board!
     
+    var strategist: GKMonteCarloStrategist!
+    
+    
     private var label: SKSpriteNode?
     private var spinnyNode: SKShapeNode?
     
@@ -57,6 +60,13 @@ class GameScene: SKScene {
             
             board.rows.append([StoneColor](repeatElement(.empty, count: Board.size)))
             rows.append(colArray)
+            
+            strategist = GKMonteCarloStrategist()
+            strategist.budget = 100
+            strategist.explorationParameter = 1
+            strategist.randomSource = GKRandomSource.sharedRandom()
+            strategist.gameModel = board
+            
             
         }
         
@@ -103,6 +113,11 @@ class GameScene: SKScene {
         if board.canMoveIn(row: tappedStone.row, col: tappedStone.col) {
             //8: print a message if the move is legal
             makeMove(row: tappedStone.row, col: tappedStone.col)
+            
+            if board.currentPlayer.stoneColor == .white {
+                makeAIMove()
+            }
+            
         } else {
             print("Move is illegal")
         }
@@ -130,6 +145,40 @@ class GameScene: SKScene {
         
         //change players
         board.currentPlayer = board.currentPlayer.opponent
+    }
+    
+    func makeAIMove() {
+        
+        //1: push all the works to the background thread
+        
+        DispatchQueue.global().async {
+            //2: get the current time
+            let strategistTime = CFAbsoluteTimeGetCurrent()
+            
+            //3: calculate the best AI move
+            
+            guard let move = self.strategist.bestMoveForActivePlayer() as? Move else { return }
+            
+            //4: figure out how much time AI spend thinking
+            let delta = CFAbsoluteTimeGetCurrent() - strategistTime
+            
+            //5: set the AI's chosen title to "thinking" texture
+            DispatchQueue.main.async {
+                self.rows[move.row][move.col].setPlayer(.choice)
+                
+                //6: wait for at least 3 second
+                let aiTimeCeiling = 3.0
+                
+                let delay = min(aiTimeCeiling - delta, aiTimeCeiling)
+                //7: after 3 seconds has passed, make the  move for real
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: { 
+                    self.makeMove(row: move.row, col: move.col)
+                })
+            }
+            
+            
+        }
+        
     }
     
 }
