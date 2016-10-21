@@ -119,10 +119,6 @@ class Board: NSObject, GKGameModel {
                     
                     
                     let stone = rows[currentRow][currentCol]
-                    print(stone)
-                    
-                    print(player.stoneColor)
-                    
                     
                     if stone == player.stoneColor {
                         count += 1
@@ -133,7 +129,7 @@ class Board: NSObject, GKGameModel {
                 
             }
             
-            if count == 2 {
+            if count == 4 {
                 return true
             }
             

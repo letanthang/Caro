@@ -15,7 +15,7 @@ class GameScene: SKScene {
     var board: Board!
     
     var strategist: GKMonteCarloStrategist!
-    
+    var gameEnd = false
     
     private var label: SKSpriteNode?
     private var spinnyNode: SKShapeNode?
@@ -61,11 +61,11 @@ class GameScene: SKScene {
             board.rows.append([StoneColor](repeatElement(.empty, count: Board.size)))
             rows.append(colArray)
             
-            strategist = GKMonteCarloStrategist()
-            strategist.budget = 100
-            strategist.explorationParameter = 1
-            strategist.randomSource = GKRandomSource.sharedRandom()
-            strategist.gameModel = board
+//            strategist = GKMonteCarloStrategist()
+//            strategist.budget = 100
+//            strategist.explorationParameter = 1
+//            strategist.randomSource = GKRandomSource.sharedRandom()
+//            strategist.gameModel = board
             
             
         }
@@ -91,6 +91,11 @@ class GameScene: SKScene {
     
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        guard gameEnd == false else {
+            return
+        }
+        
         //1: unwrap the first touch
         guard let touch = touches.first else { return }
         
@@ -147,7 +152,7 @@ class GameScene: SKScene {
         
         if board.checkWin() == true {
             print("We have a winner!")
-            self.isPaused = true
+            gameEnd = true
         }
         
         //change players
