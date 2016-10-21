@@ -21,11 +21,13 @@ class Board: NSObject, GKGameModel {
     
     static let size = 8
     
-    static let moves = [Move(row: -1, col: -1), Move(row: -1, col: 0), Move(row: -1, col: 1), Move(row: 0, col: 1), Move(row: 1, col: 1), Move(row: 1, col: 0), Move(row: 1, col: -1), Move(row: 0, col: -1)]
+    static let moves = [Move(row: 0, col: 1), Move(row: 1, col: 1), Move(row: 1, col: 0), Move(row: 1, col: -1)]
     
     var currentPlayer = Player.allPlayers[0]
     
     var rows = [[StoneColor]]()
+    
+    var lastMove = Move(row: 0, col: 0) //dump init var
     
     func canMoveIn(row: Int, col: Int) -> Bool {
         //test 1: check if the move is sensible (not out of bound/range)
@@ -36,47 +38,13 @@ class Board: NSObject, GKGameModel {
         let stone = rows[row][col]
         if stone != .empty { return false }
         
-        
-        //test 3: check if the move is legal
-        for move in Board.moves {
-            //2: create a variable to track whether we we've passed at least one opponent stone
-            var passedOpponent = false
-            
-            //3: set movement variables containing our initial row and columnn
-            var currentRow = row
-            var currentCol = col
-            
-            //4: count from here up the edge of the board, applying our move each time
-            
-            for _ in 0..<Board.size {
-                //5: add a move to our movement variables
-                currentRow += move.row
-                currentCol += move.col
-                
-                //6: if our position is off the board, break out of the loop
-                guard isInBound(row: currentRow, col: currentCol) else { break }
-                
-                let stone = rows[currentRow][currentCol]
-                
-                if stone == currentPlayer.opponent.stoneColor {
-                    //7: we found an enemy stone
-                    passedOpponent = true
-                } else if stone == currentPlayer.stoneColor && passedOpponent {
-                    //8 : we found one of our stones after finding an enemy stone
-                    return true
-                } else {
-                    //9: we found sth else; bail out
-                    break
-                }
-            }            
-        }
-        //10: if we're still here it means we failed
-        return false
+        return true
         
         
     }
     
     func isInBound(row: Int, col: Int) -> Bool {
+        
         if row < 0 { return false }
         if col < 0 { return false }
         if row >= Board.size { return false }
@@ -91,43 +59,9 @@ class Board: NSObject, GKGameModel {
         //2: place the stone in the requested position
         rows[row][col] = player.stoneColor
         
-        didCapture.append(Move(row: row, col: col))
+        lastMove = Move(row: row, col: col)
         
-        for move in Board.moves {
-            //3: look in this direction for  captured stones
-            var mightCapture = [Move]()
-            var currentRow = row
-            var currentCol = col
-            
-            for _ in 0 ..< Board.size {
-                currentRow += move.row
-                currentCol += move.col
-                
-                //5: make sure this is a sensible position to move to
-                
-                guard isInBound(row: currentRow, col: currentCol) else { break }
-                let stone = rows[currentRow][currentCol]
-                
-                if stone == player.opponent.stoneColor {
-                    //6: we found an enemy stone - add it to the list of possible captures
-                    mightCapture.append(Move(row: currentRow, col: currentCol))
-                    
-                } else if stone == player.stoneColor {
-                    //7: we found one of our stones, add the might capture to did capture array
-                    didCapture.append(contentsOf: mightCapture)
-                    //8: change all stones to the player color, then exit the loop because we're finished in this direction
-                    mightCapture.forEach {
-                        rows[$0.row][$0.col] = player.stoneColor
-                    }
-                    break
-                    
-                } else {
-                    //9: we found sth else bail out
-                    break
-                }
-            }
-            
-        }
+        didCapture.append(lastMove)
         //10: send back the list of of captured stones
         return didCapture
     }
@@ -148,16 +82,65 @@ class Board: NSObject, GKGameModel {
         return (black, white)
     }
     
+    func checkWin() -> Bool {
+        //print(currentPlayer.stoneColor)
+        return isWin(for: currentPlayer)
+    }
+    
     func isWin(for player: GKGameModelPlayer) -> Bool {
-        guard let playerObject = player as? Player else { return false }
         
-        let scores = getScores()
+        let row = lastMove.row
+        let col = lastMove.col
         
-        if playerObject.stoneColor == .black {
-            return scores.black > scores.white + 10
-        } else {
-            return scores.white > scores.black + 10
+        guard let player = player as? Player else { return false }
+        
+        for move in Board.moves {
+            //3: look in this direction for  captured stones
+            
+            
+            
+            var count = 0
+            
+            //move up and down
+            
+            for way in [1,-1] {
+                
+                var currentRow = row
+                var currentCol = col
+                
+                for _ in 0 ..< Board.size {
+                    
+                    currentRow += move.row * way
+                    currentCol += move.col * way
+                    
+                    //5: make sure this is a sensible position to move to
+                    
+                    guard isInBound(row: currentRow, col: currentCol) else { break }
+                    
+                    
+                    let stone = rows[currentRow][currentCol]
+                    print(stone)
+                    
+                    print(player.stoneColor)
+                    
+                    
+                    if stone == player.stoneColor {
+                        count += 1
+                    } else {
+                        break
+                    }
+                }
+                
+            }
+            
+            if count == 2 {
+                return true
+            }
+            
         }
+        
+        return false
+
     }
     
     func gameModelUpdates(for player: GKGameModelPlayer) -> [GKGameModelUpdate]? {

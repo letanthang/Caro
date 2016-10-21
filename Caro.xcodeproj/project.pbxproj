@@ -22,7 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3B14E38E1D91184700EC3DB3 /* Flip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B14E38E1D91184700EC3DB3 /* Caro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Caro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B14E3911D91184700EC3DB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B14E3931D91184700EC3DB3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		3B14E3971D91184700EC3DB3 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		3B14E3851D91184700EC3DB3 = {
 			isa = PBXGroup;
 			children = (
-				3B14E3901D91184700EC3DB3 /* Flip */,
+				3B14E3901D91184700EC3DB3 /* Caro */,
 				3B14E38F1D91184700EC3DB3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,37 +60,38 @@
 		3B14E38F1D91184700EC3DB3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3B14E38E1D91184700EC3DB3 /* Flip.app */,
+				3B14E38E1D91184700EC3DB3 /* Caro.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3B14E3901D91184700EC3DB3 /* Flip */ = {
+		3B14E3901D91184700EC3DB3 /* Caro */ = {
 			isa = PBXGroup;
 			children = (
 				3B14E3911D91184700EC3DB3 /* AppDelegate.swift */,
 				3B14E3931D91184700EC3DB3 /* GameScene.sks */,
 				3B14E3971D91184700EC3DB3 /* GameScene.swift */,
+				3B62FD1A1D98B64000FBF4CB /* StoneColor.swift */,
 				3B62FD201D98D5DA00FBF4CB /* Player.swift */,
 				3B62FD221D98DADF00FBF4CB /* Move.swift */,
 				3B62FD1C1D98B6D400FBF4CB /* Stone.swift */,
+				3B62FD1E1D98CDFB00FBF4CB /* Board.swift */,
 				3B14E3991D91184700EC3DB3 /* GameViewController.swift */,
 				3B14E39B1D91184700EC3DB3 /* Main.storyboard */,
 				3B14E39E1D91184700EC3DB3 /* Assets.xcassets */,
 				3B14E3A01D91184700EC3DB3 /* LaunchScreen.storyboard */,
 				3B14E3A31D91184700EC3DB3 /* Info.plist */,
-				3B62FD1A1D98B64000FBF4CB /* StoneColor.swift */,
-				3B62FD1E1D98CDFB00FBF4CB /* Board.swift */,
 			);
+			name = Caro;
 			path = Flip;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3B14E38D1D91184700EC3DB3 /* Flip */ = {
+		3B14E38D1D91184700EC3DB3 /* Caro */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3B14E3A61D91184700EC3DB3 /* Build configuration list for PBXNativeTarget "Flip" */;
+			buildConfigurationList = 3B14E3A61D91184700EC3DB3 /* Build configuration list for PBXNativeTarget "Caro" */;
 			buildPhases = (
 				3B14E38A1D91184700EC3DB3 /* Sources */,
 				3B14E38B1D91184700EC3DB3 /* Frameworks */,
@@ -100,9 +101,9 @@
 			);
 			dependencies = (
 			);
-			name = Flip;
+			name = Caro;
 			productName = Flip;
-			productReference = 3B14E38E1D91184700EC3DB3 /* Flip.app */;
+			productReference = 3B14E38E1D91184700EC3DB3 /* Caro.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -122,7 +123,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3B14E3891D91184700EC3DB3 /* Build configuration list for PBXProject "Flip" */;
+			buildConfigurationList = 3B14E3891D91184700EC3DB3 /* Build configuration list for PBXProject "Caro" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -135,7 +136,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3B14E38D1D91184700EC3DB3 /* Flip */,
+				3B14E38D1D91184700EC3DB3 /* Caro */,
 			);
 		};
 /* End PBXProject section */
@@ -293,7 +294,7 @@
 				INFOPLIST_FILE = Flip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.thangcompany.Flip;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thangcompany.Caro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -307,7 +308,7 @@
 				INFOPLIST_FILE = Flip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.thangcompany.Flip;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thangcompany.Caro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -316,7 +317,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3B14E3891D91184700EC3DB3 /* Build configuration list for PBXProject "Flip" */ = {
+		3B14E3891D91184700EC3DB3 /* Build configuration list for PBXProject "Caro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3B14E3A41D91184700EC3DB3 /* Debug */,
@@ -325,7 +326,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3B14E3A61D91184700EC3DB3 /* Build configuration list for PBXNativeTarget "Flip" */ = {
+		3B14E3A61D91184700EC3DB3 /* Build configuration list for PBXNativeTarget "Caro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3B14E3A71D91184700EC3DB3 /* Debug */,

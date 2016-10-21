@@ -115,8 +115,10 @@ class GameScene: SKScene {
             makeMove(row: tappedStone.row, col: tappedStone.col)
             
             if board.currentPlayer.stoneColor == .white {
-                makeAIMove()
+                //makeAIMove()
             }
+            
+            
             
         } else {
             print("Move is illegal")
@@ -141,6 +143,11 @@ class GameScene: SKScene {
             stone.run(SKAction.scale(to: 1, duration: 0.5))
             
             
+        }
+        
+        if board.checkWin() == true {
+            print("We have a winner!")
+            self.isPaused = true
         }
         
         //change players

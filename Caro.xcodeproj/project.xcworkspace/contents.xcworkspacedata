@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Flip.xcodeproj">
+      location = "self:/Users/thangletan/Documents/GameProjects/Caro/Caro.xcodeproj">
    </FileRef>
 </Workspace>
